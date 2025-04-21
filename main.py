@@ -1,22 +1,17 @@
 import os
-import sys
 from dotenv import load_dotenv # dotenvからload_dotenvをインポート
 from pkg.application.api_use_case import ApiUseCase
-from pkg.domain.interface.external.http_external import IHttpRequest
 from pkg.infrastructure.external.http import JsonHttpRequest
 
-# --- 環境変数から API ベース URL を読み込む ---
 load_dotenv()
 env_var_name = 'API_BASE_URL'
-api_base_url = os.getenv("API_BASE_URL") # .envファイルの内容も読み込まれる
+api_base_url = os.getenv("API_BASE_URL")
 
 if api_base_url is None:
     raise Exception("エラー: 環境変数 '{env_var_name}' が環境または .env ファイルに設定されていません。")
 
 def main():
-    # APIのエンドポイント情報
-    http_client: IHttpRequest = JsonHttpRequest(api_base_url) # 型ヒントはインターフェース
-
+    http_client = JsonHttpRequest(api_base_url)
     # ユースケースに必要な依存関係 (http_client) を注入してサービスを生成
     api_use_case = ApiUseCase(http_requester=http_client)
 
