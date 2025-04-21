@@ -25,9 +25,9 @@ class ApiUseCase:
             method="POST"
         )
         if auth_obj and auth_obj.accessToken:
-            print("ログイン成功")
+            print("ログイン 成功")
         else:
-            print("ログイン失敗")
+            print("ログイン 失敗")
         return auth_obj
 
     def register_blocked_times(
